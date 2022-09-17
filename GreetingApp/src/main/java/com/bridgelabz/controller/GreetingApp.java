@@ -1,5 +1,6 @@
 package com.bridgelabz.controller;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -40,6 +41,22 @@ public class GreetingApp {
         try {
             Greeting user = greetingService.getUser(id);
             return new ResponseEntity<>(user, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    @GetMapping("/displayTable")
+    public List<Greeting> list() {
+        return greetingService.listAllUser();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@RequestBody Greeting greet, @PathVariable Integer id) {
+        try {
+            Greeting existGreet = greetingService.getUser(id);
+            greet.setId(Long.valueOf(id));
+            greetingService.save(greet);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
