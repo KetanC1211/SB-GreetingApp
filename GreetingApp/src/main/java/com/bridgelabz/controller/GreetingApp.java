@@ -61,4 +61,8 @@ public class GreetingApp {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Integer id) {
+        greetingService.deleteUser(id);
+    }
 }

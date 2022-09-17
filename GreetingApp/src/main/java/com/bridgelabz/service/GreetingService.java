@@ -24,4 +24,8 @@ public class GreetingService {
     public List<Greeting> listAllUser() {
         return greetingRepo.findAll();
     }
+
+    public void deleteUser(Integer id) {
+        greetingRepo.deleteById(Long.valueOf(id));
+    }
 }
