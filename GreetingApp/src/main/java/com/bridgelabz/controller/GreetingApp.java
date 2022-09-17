@@ -1,11 +1,14 @@
 package com.bridgelabz.controller;
 
+import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicLong;
 
 import com.bridgelabz.GreetingAppApplication;
 import com.bridgelabz.model.Greeting;
 import com.bridgelabz.service.GreetingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -32,4 +35,13 @@ public class GreetingApp {
         return newGreet;
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Greeting> get(@PathVariable Integer id) {
+        try {
+            Greeting user = greetingService.getUser(id);
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }

@@ -15,4 +15,8 @@ public class GreetingService {
     public Greeting save(Greeting greet){
         return greetingRepo.save(greet);
     }
+    public Greeting getUser(Integer id) {
+        return greetingRepo.findById(Long.valueOf(id)).get();
+    }
+
 }
