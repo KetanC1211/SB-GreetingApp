@@ -1,5 +1,6 @@
 package com.bridgelabz.controller;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -33,6 +34,11 @@ public class GreetingApp {
     public Greeting save(@RequestBody Greeting greet){
         Greeting newGreet = greetingService.save(greet);
         return newGreet;
+    }
+
+    @GetMapping("/displayTable")
+    public List<Greeting> list() {
+        return greetingService.listAllUser();
     }
 
     @GetMapping("/{id}")
